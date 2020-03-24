@@ -10,8 +10,6 @@ import UIKit
 //Need to use
 import WebKit
 
-import SafariServices
-
 class ViewController: UIViewController {
 
     @IBOutlet weak var myWebKitView: WKWebView!
@@ -22,25 +20,10 @@ class ViewController: UIViewController {
     }
     
     
-    @IBAction func showHistory(_ sender: UIBarButtonItem)
-    {
-        if myWebKitView.canGoBack
-        {
-            let historyList =  myWebKitView.backForwardList.backList
-            if historyList.count > 0
-            {
-                for item in historyList {
-                    print("\(String(describing: item.title)) -  \(item.url.absoluteURL)")
-                }
-            }
-        }
-    }
-    
-    
     func loadLambtonUrl()
     {
         let url = URL(string: "https://www.lambtoncollege.ca/")
-        let urlReq = URLRequest(url: url!)
+        let urlReq = URLjnRequest(url: url!)
         myWebKitView.load(urlReq)
     }
     
@@ -50,21 +33,21 @@ class ViewController: UIViewController {
         myWebKitView.loadHTMLString(htmlString, baseURL: nil)
         
     }
-    
-    //Use Safari View Controller to open web link
-     @IBAction func watchNowUsingSafari(_ sender: UIBarButtonItem)
+    @IBAction func btnHistory(_ sender: Any)
     {
-        let videoUrl = URL(string: "https://www.youtube.com/watch?v=gnjXbR2eNDE")
-        let safariVC = SFSafariViewController(url: videoUrl!)
-        self.present(safariVC, animated: true, completion: nil)
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let historyTVC = sb.instantiateViewController(identifier: "historyTVC") as! HistoryTableViewController
+        historyTVC.historyList = self.history
+        navigationController?.pushViewController(historyTVC, animated: true)
     }
+
     
     
+
     @IBAction func btnNavigation(_ sender: UIBarButtonItem)
     {
         switch sender.tag {
         case 0://Home Button is pressed
-            //myWebKitView.backForwardList.backList[0]
             myWebKitView.reloadFromOrigin()
         case 1://Prev Button is pressed
             if myWebKitView.canGoBack
@@ -75,20 +58,17 @@ class ViewController: UIViewController {
             {
                 print("Can't Go back")
             }
-            
-        case 2:
+            case 2: 
             if myWebKitView.canGoForward
             {
-                print("Go Forward")
                 myWebKitView.goForward()
-            }else
-            {
-                print("Can't Go forward")
             }
-            
-        case 3:
-            myWebKitView.reloadFromOrigin()
-            
+            else 
+            {
+                print("Can't move forward")
+            }
+         case 3: 
+            myWebKitView.reload()
         default:
             print("No Navigation action found...")
         }
