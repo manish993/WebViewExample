@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     func loadLambtonUrl()
     {
         let url = URL(string: "https://www.lambtoncollege.ca/")
-        let urlReq = URLRequest(url: url!)
+        let urlReq = URLjnRequest(url: url!)
         myWebKitView.load(urlReq)
     }
     
