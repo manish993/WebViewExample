@@ -58,7 +58,16 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="w33-U0-OcH">
-                        <barButtonItem key="rightBarButtonItem" title="History" id="Slo-Bg-yjW"/>
+                        <barButtonItem key="leftBarButtonItem" title="Show Safari" id="yR4-O8-asm">
+                            <connections>
+                                <action selector="watchNowUsingSafari:" destination="BYZ-38-t0r" id="aDG-uP-haf"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="History" id="Slo-Bg-yjW">
+                            <connections>
+                                <action selector="showHistory:" destination="BYZ-38-t0r" id="2J9-Oo-8a0"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="myWebKitView" destination="KdN-yg-rGs" id="Ttc-dy-auA"/>
